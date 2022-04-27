@@ -5,19 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/22 03:26:49 by misaev            #+#    #+#             */
-/*   Updated: 2022/04/26 04:29:52 by misaev           ###   ########.fr       */
+/*   Created: 2022/04/27 02:49:56 by misaev            #+#    #+#             */
+/*   Updated: 2022/04/27 04:31:07 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <limits>
-#include <iomanip>
+#include "Conversion.hpp"
 
+/* Form Canonique */
+Conversion::Conversion()
+{
+    this->i = 0;
+    this->f = float(i);
+    this->c = i;
+    std::cout << "Default Constructor Called" << std::endl;
+}
 
-int check_isdigit(std::string str)
+Conversion::Conversion(const Conversion &p)
+{
+    this->i = p.i;
+    this->f = p.f;
+    this->c = p.c;
+}
+
+Conversion &Conversion::operator=(const Conversion &p)
+{
+    this->i = p.i;
+    this->f = p.f;
+    this->c = p.c;
+    return *this;
+}
+
+Conversion::~Conversion()
+{
+    std::cout << "Destructor Called" << std::endl;
+}
+/* END */ 
+
+int Conversion::check_isdigit(std::string str) const
 {
     for(int i = 0; i < (int)str.length(); i++)
     {
@@ -27,49 +52,38 @@ int check_isdigit(std::string str)
     return 1;
 }
 
-int main(int ac, char **argv)
+Conversion::Conversion(char *arg)
 {
-    if(ac != 2)
+    if (check_isdigit(arg) == 0) // if its not a digit
     {
-        std::cout << "Not enough or too much argument" << std::endl;
-    }
-    else
-    {
-        if (check_isdigit(argv[1]) == 0) // if its not a digit
+        if (strlen(arg) > 1) // if its not a string
+            std::cout << "Wrong input ! " << std::endl;
+        else
         {
-            std::string arg = argv[1];
-            if (strlen(argv[1]) > 1) // if its not a string
-            {
-                printf("Wrong input ! ");
-            }
-            else
-            {
-                float f = float(argv[1][0]);
-                int i = int(argv[1][0]);
-                char c = i;
-                    std::cout << "char: ";
-                if (i > 32 && i < 127)
-                    std::cout << c << std::endl;
-                else
-                    std::cout << "Non Displayable" << std::endl;
-                std::cout << "int: " << i << std::endl;
-                std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
-                std::cout << "double: " << std::fixed << std::setprecision(1) << f << std::endl;
-            }
-        }
-        else if (check_isdigit(argv[1]) == 1)
-        {
-            float f = atof(argv[1]);
-            int i = atoi(argv[1]);
-            char c = i;
-                std::cout << "char: ";
-            if (i > 32 && i < 127)
-                std::cout << c << std::endl;
-            else
-                std::cout << "Non Displayable" << std::endl;
-            std::cout << "int: " << atoi(argv[1]) << std::endl;
-            std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
-            std::cout << "double: " << std::fixed << std::setprecision(1) << f << std::endl;
+            this->f = float(arg[0]);
+            this->i = int(arg[0]);
+            this->c = this->i;
         }
     }
+    else if (check_isdigit(arg) == 1)
+    {
+        this->f = atof(arg);
+        this->i = atoi(arg);
+        this->c = this->i;
+    }
+}
+
+float Conversion::getFloat() const
+{
+    return this->f;
+}
+
+int Conversion::getInt() const
+{
+    return this->i;
+}
+
+char Conversion::getChar() const
+{
+    return this->c;
 }

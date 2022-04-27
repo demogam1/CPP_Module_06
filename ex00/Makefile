@@ -4,7 +4,7 @@ FLAG=-Wall -Werror -Wextra -std=c++98
 
 CC=clang++
 
-SRC=Conversion.cpp
+SRC= main.cpp Conversion.cpp
 
 $(NAME):$(SRC)
 	$(CC) $(FLAG) $(SRC) -o $(NAME) 
