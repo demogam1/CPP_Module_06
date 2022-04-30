@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 02:05:10 by misaev            #+#    #+#             */
-/*   Updated: 2022/04/30 01:27:10 by misaev           ###   ########.fr       */
+/*   Updated: 2022/04/30 02:27:04 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,12 @@ void identify(Base& p)
 int main()
 {
     Base *t = generate();
-    B a;
-    Base &c = dynamic_cast<B &>(a);
     identify(t);
+    std::cout << "------------------\n"; 
+    C a;
+    Base &c = dynamic_cast<C &>(a);
     identify(c);
+    std::cout << "------------------\n"; 
+    delete t;
     return 1;
 }

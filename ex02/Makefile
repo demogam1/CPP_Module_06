@@ -4,7 +4,7 @@ CC=clang++
 
 # FLAG=-Wall -Werror -Wextra -std=c++98
 
-SRC= Base.cpp A.cpp B.cpp C.cpp main.cpp
+SRC= Base.cpp main.cpp
 
 $(NAME):$(SRC)
 	$(CC) $(FLAG) $(SRC) -o $(NAME)
