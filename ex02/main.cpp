@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 02:05:10 by misaev            #+#    #+#             */
-/*   Updated: 2022/04/30 02:27:04 by misaev           ###   ########.fr       */
+/*   Updated: 2022/05/02 11:05:45 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void identify(Base& p)
 {
     try
     {
-        A &b = dynamic_cast<A &>(p);
+        p = dynamic_cast<A &>(p);
         std::cerr << "Le veritable type est A" << std::endl;
     }
     catch(std::bad_cast)
@@ -63,7 +63,7 @@ void identify(Base& p)
     }
     try
     {
-        B &b = dynamic_cast<B &>(p);
+        p =  dynamic_cast<B &>(p);
         std::cerr << "Le veritable type est B" << std::endl;
     }
     catch(std::bad_cast)
@@ -72,7 +72,7 @@ void identify(Base& p)
     }
     try
     {
-        C &b = dynamic_cast<C &>(p);
+        p =  dynamic_cast<C &>(p);
         std::cerr << "Le veritable type est C" << std::endl;
     }
     catch(std::bad_cast)

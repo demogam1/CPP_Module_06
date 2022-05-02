@@ -13,4 +13,5 @@ all:$(NAME)
 
 fclean:
 	rm -rf $(NAME)
+
 re:fclean all

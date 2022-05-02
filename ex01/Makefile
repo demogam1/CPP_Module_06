@@ -1,10 +1,10 @@
-NAME=Type_Info
+NAME=serial
 
 CC=clang++
 
 FLAG=-Wall -Werror -Wextra -std=c++98
 
-SRC= Base.cpp main.cpp
+SRC=main.cpp
 
 $(NAME):$(SRC)
 	$(CC) $(FLAG) $(SRC) -o $(NAME)
