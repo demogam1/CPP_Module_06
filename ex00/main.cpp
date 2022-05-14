@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 03:52:34 by misaev            #+#    #+#             */
-/*   Updated: 2022/04/27 04:29:07 by misaev           ###   ########.fr       */
+/*   Updated: 2022/05/14 18:39:59 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,14 @@
 
 int main(int ac, char **arg)
 {
-    if (ac != 2)
+    if (ac != 2) 
     {
         if (ac > 2)
             std::cout << "Too much arguments" << std::endl;
         else
-            std::cout << "Less much arguments" << std::endl;
+            std::cout << "number of arguments incorrect" << std::endl;
     }
     else
-    {
-        Conversion toto(arg[1]);
-        std::cout << "char: ";
-        if (toto.getInt() > 32 && toto.getInt() < 127)
-            std::cout << toto.getChar() << std::endl;
-        else
-            std::cout << "Non Displayable" << std::endl;
-        std::cout << "int: " << toto.getInt() << std::endl;
-        std::cout << "float: " << std::fixed << std::setprecision(1) << toto.getFloat() << "f" << std::endl;
-        std::cout << "double: " << std::fixed << std::setprecision(1) << toto.getFloat() << std::endl;        
-    }
+        Conversion toto(arg[1]); 
     return 1;
 }

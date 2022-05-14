@@ -1,6 +1,6 @@
 NAME=convert
 
-FLAG=-Wall -Werror -Wextra -std=c++98
+FLAG=-std=c++98
 
 CC=clang++
 

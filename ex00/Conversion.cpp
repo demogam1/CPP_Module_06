@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 02:49:56 by misaev            #+#    #+#             */
-/*   Updated: 2022/04/27 04:31:07 by misaev           ###   ########.fr       */
+/*   Updated: 2022/05/14 18:41:42 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,75 +15,120 @@
 /* Form Canonique */
 Conversion::Conversion()
 {
-    this->i = 0;
-    this->f = float(i);
-    this->c = i;
-    std::cout << "Default Constructor Called" << std::endl;
 }
 
 Conversion::Conversion(const Conversion &p)
 {
-    this->i = p.i;
-    this->f = p.f;
-    this->c = p.c;
+    this->_i = p._i;
+    this->_f = p._f;
+    this->_c = p._c;
+    this->_d = p._d;
 }
 
 Conversion &Conversion::operator=(const Conversion &p)
 {
-    this->i = p.i;
-    this->f = p.f;
-    this->c = p.c;
+    this->_i = p._i;
+    this->_f = p._f;
+    this->_c = p._c;
+    this->_d = p._d;
     return *this;
 }
 
 Conversion::~Conversion()
 {
-    std::cout << "Destructor Called" << std::endl;
 }
 /* END */ 
 
-int Conversion::check_isdigit(std::string str) const
-{
-    for(int i = 0; i < (int)str.length(); i++)
-    {
-        if (isdigit(str[i]) == 0 && str[i] != 'f' && str[i] != '.')
-            return 0;
-    }
-    return 1;
-}
 
 Conversion::Conversion(char *arg)
 {
-    if (check_isdigit(arg) == 0) // if its not a digit
+    char *endptr_i;
+    char *endptr_d;
+    
+    long l = strtol(arg, &endptr_i, 10);
+    if (*endptr_i && strlen(endptr_i) != 1)
     {
-        if (strlen(arg) > 1) // if its not a string
-            std::cout << "Wrong input ! " << std::endl;
+        this->_d = strtod(arg, &endptr_d);
+        if (*endptr_d)
+        {
+            if (!strcmp(endptr_d, "f"))
+            {
+                this->_i = static_cast<int>(this->_d);
+                this->_c = static_cast<char>(this->_i);
+                this->_f = static_cast<float>(this->_d);
+                if (!strnstr(endptr_i, ".", strlen(endptr_i)))
+                {
+                    std::cout << "char: impossible" << std::endl;
+                    std::cout << "int: impossible" << std::endl;
+                }
+                else
+                {
+                    std::cout << "char: ";
+                    if (this->_i > 37 && this->_i < 127)
+                        std::cout << this->_c << std::endl;
+                    else
+                        std::cout << "Non displayable" << std::endl;
+                    std::cout << "int: " << this->_i << std::endl;
+                }
+                std::cout << std::setprecision(3) << "float: " << this->_f << "f" << std::endl;
+                std::cout << std::setprecision(3) << "double: "<< this->_d << std::endl;
+            }
+            else
+                std::cout << "Wrong_input\n";    
+        }
         else
         {
-            this->f = float(arg[0]);
-            this->i = int(arg[0]);
-            this->c = this->i;
-        }
+            this->_i = static_cast<int>(this->_d);
+            this->_c = static_cast<char>(this->_i);
+            this->_f = static_cast<float>(this->_d);
+            if (!strcmp(endptr_i, "nan") || !strcmp(endptr_i, "-inf") || !strcmp(endptr_i, "+inf"))
+            {
+                std::cout << "char: impossible" << std::endl;
+                std::cout << "int: impossible" << std::endl;
+            }
+            else if (l > INT_MAX || l < INT_MIN)
+            {
+                std::cout << "char: impossible" << std::endl;
+                std::cout << "int: impossible" << std::endl;
+            }
+            else
+            {
+                std::cout << "char: ";
+                if (this->_i > 37 && this->_i < 127)
+                    std::cout << this->_c << std::endl;
+                else
+                    std::cout << "Non displayable" << std::endl;
+                std::cout << "int: " << this->_i << std::endl;
+            }
+            std::cout << std::setprecision(3) << "float: " << this->_f << "f" << std::endl;
+            std::cout << std::setprecision(3) << "double: "<< this->_d << std::endl;
+        }        
     }
-    else if (check_isdigit(arg) == 1)
+    else
     {
-        this->f = atof(arg);
-        this->i = atoi(arg);
-        this->c = this->i;
-    }
+        if (strlen(endptr_i) == 1)
+            this->_i = static_cast<int>(endptr_i[0]);
+        else
+            this->_i = static_cast<int>(l);
+        this->_d = static_cast<double>(this->_i);
+        this->_c = static_cast<char>(this->_i);
+        this->_f = static_cast<float>(this->_d);
+        if (l > INT_MAX || l < INT_MIN)
+        {
+            std::cout << "char: impossible" << std::endl;
+            std::cout << "int: impossible" << std::endl;
+        }
+        else
+        {            
+            std::cout << "char: ";
+            if (this->_i > 37 && this->_i < 127)
+                std::cout << this->_c << std::endl;
+            else
+                std::cout << "Non displayable" << std::endl;
+            std::cout << "int: " << this->_i << std::endl;
+        }
+        std::cout << std::setprecision(3) << "float: " << this->_f << "f" << std::endl;
+        std::cout << std::setprecision(3) << "double: "<< this->_d << std::endl;
+    }        
 }
 
-float Conversion::getFloat() const
-{
-    return this->f;
-}
-
-int Conversion::getInt() const
-{
-    return this->i;
-}
-
-char Conversion::getChar() const
-{
-    return this->c;
-}
